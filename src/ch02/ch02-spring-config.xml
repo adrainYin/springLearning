@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--以下是bean的配置代码-->
+    <!--c命名空间用来构造函数的创建-->
+    <!--p命名空间用来属性值的注入-->
+    <!--util命名空间用来-->
+
+
+    <bean class="ch02.SgtPeppers" id="cdPlayer">
+    </bean>
+
+    <bean id="mediaPlayer" class="ch02.SubMediaPlayer" c:cDplayer-ref="cdPlayer">
+    </bean>
+
+
+    <bean id="blankDisc" class="ch02.BlankDisc" p:name="hahaha" p:num="1222221111" p:list-ref="BlankDiscList">
+    </bean>
+
+
+
+    <bean class="ch02.SecJavaConfig">
+    </bean>
+
+    <bean class="ch02.JavaConfig">
+    </bean>
+
+
+    <context:property-placeholder />
+
+
+    <util:list id="BlankDiscList">
+        <value>这是一个测试的demo1</value>
+        <value>这是一个测试的demo2</value>
+    </util:list>
+
+
+
+</beans>

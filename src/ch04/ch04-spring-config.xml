@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--spring命名空间详解:
+    xmlns:是自定义的命名空间  xsi:schemaLocation是对配置的命名空间指定规范文件
+    在xsi:schemaLocation中 命名空间和文件uri用一对的形式出现，中间用空格隔开
+    uri表示文件资源的地址，会从本地的lib库中具体的包下寻找-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop  http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--<context:component-scan base-package="ch04"/>-->
+    <!--开启aop的aspectj自动代理-->
+    <!--用xml文件开启Aspectj自动代理的时候需要加入xsi的地址-->
+    <aop:aspectj-autoproxy/>
+    <bean id="audience" class="ch04.Audience"/>
+    <bean id="performance" class="ch04.PerformanceImp" />
+    <bean id="encorableImp" class="ch04.EncorableImp" />
+
+    <aop:config>
+        <!--这里的ref对象就是切面java类，其中定义了被通知的方法-->
+        <!--这里不需要提供依附注解的方法，直接编写被通知方法即可-->
+        <aop:aspect ref="audience">
+            <!--method是被通知时调用的方法，pointcut是Aspectj表达式定义的连接点
+            这种定义是将切点分散到了各个被通知方法中-->
+            <aop:before method="takeSeats" pointcut="execution(* ch04.Performance.play(..))"/>
+            <aop:before method="performance" pointcut="execution(* ch04.Performance.play(..))" />
+            <aop:after-returning method="applause" pointcut="execution(* ch04.Performance.play(..))"/>
+            <aop:after-throwing method="performanceFail" pointcut="execution(* ch04.Performance.play(..))"/>
+
+            <!--这种定义方法类似于注解的定义方法，对切点提供一个id，在后面引用。注解中是提供方法依附-->
+            <!--定义切点-->
+            <aop:pointcut id="adviseperformance" expression="execution(* ch04.Performance.play(..))"/>
+            <!--引用切点,切点和bean对象的名字一定不能重复-->
+            <aop:before method="takeSeats" pointcut-ref="adviseperformance"/>
+
+            <aop:around method="aroundAdvice" pointcut-ref="adviseperformance" />
+
+        </aop:aspect>
+    </aop:config>
+
+    <bean id="trackCount" class="ch04.TrackCount"/>
+    <bean id="compactDisc" class="ch04.CDPlayer" />
+    <aop:config>
+        <aop:aspect ref="trackCount">
+            <!--这里args(trackNumber)的匹配会根据定义的java文件自动寻找
+            也就是说args中的参数名字一定要和被调用方法中的形式参数名字保持强一致-->
+            <aop:pointcut id="trackPlayed" expression="execution(* ch04.CompactDisc.trackPlay(int)) and args(trackNumber)" />
+            <!--在被调用方法中，方法只用定义出名字而不需要形式参数了-->
+            <aop:before method="countTrack" pointcut-ref="trackPlayed" />
+
+        </aop:aspect>
+
+        <aop:aspect>
+            <!--这个加号表示匹配的所有即接口的子类对象，而不是此接口-->
+            <!--delegate-ref标签定义了可以使用id作为标识的Spring Bean作为间接的委托对象，此对象必须实现了定义的扩展父类接口-->
+            <!--delegate-ref表示参照的bean对象-->
+            <aop:declare-parents types-matching="ch04.Performance+"
+                                 implement-interface="ch04.Encorable"
+                                 default-impl="ch04.EncorableImp"
+                                 delegate-ref="encorableImp"/>
+        </aop:aspect>
+    </aop:config>
+
+    <bean id="criticsmEngin" class="ch04.CriticsmEnginImp">
+        <property name="critismPool">    <!--这里的name引用的是set方法中的形式参数名字-->
+            <list>
+                <value>hahahaha</value>
+                <value>nihaodeya</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean class="ch04.CriticAspect" factory-method="aspectOf">
+        <property name="criticismEngin" ref="criticsmEngin" />
+    </bean>
+
+
+</beans>
