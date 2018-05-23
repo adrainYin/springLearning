@@ -19,7 +19,7 @@ public class TestAOP {
     private Performance performance;
 
     /**
-     * 测试代码，在主业务执行逻辑时调用了切面函数
+     * 测试代码，在主业务执行逻辑时调用了切面方法
      */
     @Test
     public void testTrackCount(){

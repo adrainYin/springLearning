@@ -52,15 +52,17 @@
 
         </aop:aspect>
 
-        <aop:aspect>
-            <!--这个加号表示匹配的所有即接口的子类对象，而不是此接口-->
-            <!--delegate-ref标签定义了可以使用id作为标识的Spring Bean作为间接的委托对象，此对象必须实现了定义的扩展父类接口-->
-            <!--delegate-ref表示参照的bean对象-->
-            <aop:declare-parents types-matching="ch04.Performance+"
-                                 implement-interface="ch04.Encorable"
-                                 default-impl="ch04.EncorableImp"
-                                 delegate-ref="encorableImp"/>
-        </aop:aspect>
+
+        <!--<aop:aspect>-->
+            <!--&lt;!&ndash;这个加号表示匹配的所有即接口的子类对象，而不是此接口&ndash;&gt;-->
+            <!--&lt;!&ndash;delegate-ref标签定义了可以使用id作为标识的Spring Bean作为间接的委托对象，此对象必须实现了定义的扩展父类接口&ndash;&gt;-->
+            <!--&lt;!&ndash;delegate-ref表示参照的bean对象&ndash;&gt;-->
+            <!--<aop:declare-parents types-matching="ch04.Performance+"-->
+                                 <!--implement-interface="ch04.Encorable"-->
+                                 <!--default-impl="ch04.EncorableImp"-->
+                                 <!--delegate-ref="encorableImp"/>-->
+        <!--</aop:aspect> -->
+
     </aop:config>
 
     <bean id="criticsmEngin" class="ch04.CriticsmEnginImp">

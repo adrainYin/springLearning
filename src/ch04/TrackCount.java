@@ -19,6 +19,7 @@ public class TrackCount {
      * @param trackNumber 传递的参数
      */
     //@Pointcut("execution(* ch04.CompactDisc.trackPlay(int)) && args(trackNumber)")
+    //args中的限定符需要和切点方法签名中的相匹配
     public void trackPlayed(int trackNumber){}
 
     /**

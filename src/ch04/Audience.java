@@ -15,6 +15,8 @@ public class Audience {
      * 也为后面的切面逻辑提供执行标识
      */
     //@Pointcut("execution(* ch04.Performance.play(..))")
+    //within限定匹配的包的范围,比如现在5个类有fun方法，我只想匹配其中的四个类的fun方法，这时候就可以
+    //用within限定匹配的范围。虽然可以在execution方法中直接定义package.class.fun但是很麻烦
     public void performance(){}
 
     //@Before("performance()")
@@ -43,6 +45,8 @@ public class Audience {
         System.out.println("做好座位");
         System.out.println("演出开始");
         try {
+            //该对象的主要方法就是执行连接点原先的操作
+            //将控制权交给被通知的方法
             proceedingJoinPoint.proceed();
             System.out.println("鼓掌");
         } catch (Throwable throwable) {
