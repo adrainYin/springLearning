@@ -48,5 +48,6 @@
     <orderEntry type="library" name="aspectjrt" level="project" />
     <orderEntry type="library" name="aspectjweaver-1.9.1" level="project" />
     <orderEntry type="library" name="mysql-connector-java-5.1.46-bin" level="project" />
+    <orderEntry type="library" name="commons-io:commons-io:2.6" level="project" />
   </component>
 </module>
