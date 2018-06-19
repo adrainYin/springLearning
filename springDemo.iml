@@ -47,5 +47,6 @@
     <orderEntry type="library" name="cglib-2.2.2" level="project" />
     <orderEntry type="library" name="aspectjrt" level="project" />
     <orderEntry type="library" name="aspectjweaver-1.9.1" level="project" />
+    <orderEntry type="library" name="mysql-connector-java-5.1.46-bin" level="project" />
   </component>
 </module>

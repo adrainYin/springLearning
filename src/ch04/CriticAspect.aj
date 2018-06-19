@@ -1,18 +1,24 @@
 package ch04;
 
 
-public aspect CriticAspect {
+import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.aop.config.AopNamespaceUtils;
 
-    public CriticAspect(){}
+@Aspect
+public class CriticAspect{
 
-    pointcut performance() : execution(* ch04.Performance(..));
-
-    after()returning() : performance() {
-        System.out.println(criticismEngin.getCritism());
-    }
+    @Pointcut("execution(* ch04.Performance.play(..))")
+    public void performance(){}
 
     private CriticismEngin criticismEngin;
+
     public void setCriticismEngin(CriticismEngin criticismEngin) {
         this.criticismEngin = criticismEngin;
+    }
+    @After("performance()")
+    public void criticism(){
+        System.out.println(criticismEngin.getCritism());
     }
 }
