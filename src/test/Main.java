@@ -15,5 +15,14 @@ public class Main {
         demoAnnotationService.add();
         System.out.println("*************我是一条分割线*************");
         demoMethodService.add();
+        System.out.println("*************我是一条分割线*************");
+        BeanWayService beanWayService = annotationConfigApplicationContext.getBean(BeanWayService.class);
+        /**
+         * 单例模式的初始化在ApplicationContext创建出来的时候就已经存在bean容器中，
+         * 而bean对象的销毁发生在applicationContext的关闭或者对bean对象的直接销毁
+         */
+        //该方法是将bean对象移除管理
+        annotationConfigApplicationContext.removeBeanDefinition("beanWayService");
+        annotationConfigApplicationContext.close();
     }
 }

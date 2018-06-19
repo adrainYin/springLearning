@@ -35,4 +35,10 @@ public class Config {
         return new LogAspect();
     }
 
+    @Bean(initMethod = "init", destroyMethod = "destroy")
+    public BeanWayService beanWayService(){
+        return new BeanWayService();
+    }
+
+
 }
