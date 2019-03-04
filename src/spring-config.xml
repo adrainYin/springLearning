@@ -5,25 +5,32 @@
 
 
     <!--当构造函数的依赖值大于1个时，需要用index属性指定-->
-    <bean id="knight" class="ch01.BraveKnight">
-        <constructor-arg index="0" ref="quest">
-        </constructor-arg>
-        <constructor-arg index="1" ref="minister">
-        </constructor-arg>
-    </bean>
+    <!--<bean id="knight" class="ch01.BraveKnight">-->
+        <!--<constructor-arg index="0" ref="quest">-->
+        <!--</constructor-arg>-->
+        <!--<constructor-arg index="1" ref="minister">-->
+        <!--</constructor-arg>-->
+    <!--</bean>-->
 
-    <bean id="quest" class="ch01.SlayDragonQuest">
-    </bean>
-    <bean id="minister" class="ch01.Minister">
-    </bean>
+    <!--<bean id="quest" class="ch01.SlayDragonQuest">-->
+    <!--</bean>-->
+    <!--<bean id="minister" class="ch01.Minister">-->
+    <!--</bean>-->
 
-    <aop:config> <!--定义一个切面的配置-->
-        <aop:aspect ref="minister"> <!--定义一个切面的bean, 用id值作为映射-->
-            <!--在这里切点的定义定义成了一个所有对象以所有的参数运行方法embarkQuest()的时候-->
-            <aop:pointcut id="embark" expression="execution(* *.embarkQuest(..))"/><!--定义一个切点-->
-            <aop:before pointcut-ref="embark" method="before"/>
-            <aop:after method="after" pointcut-ref="embark"/>
-        </aop:aspect>
-    </aop:config>
+    <!--<aop:config> &lt;!&ndash;定义一个切面的配置&ndash;&gt;-->
+        <!--<aop:aspect ref="minister"> &lt;!&ndash;定义一个切面的bean, 用id值作为映射&ndash;&gt;-->
+            <!--&lt;!&ndash;在这里切点的定义定义成了一个所有对象以所有的参数运行方法embarkQuest()的时候&ndash;&gt;-->
+            <!--<aop:pointcut id="embark" expression="execution(* *.embarkQuest(..))"/>&lt;!&ndash;定义一个切点&ndash;&gt;-->
+            <!--<aop:before pointcut-ref="embark" method="before"/>-->
+            <!--<aop:after method="after" pointcut-ref="embark"/>-->
+        <!--</aop:aspect>-->
+    <!--</aop:config>-->
+
+    <bean id="myFactoryBeanService" class="ych.MyFactoryBeanServiceImpl"/>
+
+    <bean id="fbMyFactoryBeanService" class="ych.ProxyFactoryBean">
+        <property name="interfaceName" value="ych.MyFactoryBeanService"/>
+        <!--<property name="targetr" ref="myFactoryBeanServiceImpl"/>-->
+    </bean>
 
 </beans>
